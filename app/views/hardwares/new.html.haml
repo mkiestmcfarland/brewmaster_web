@@ -1,0 +1,9 @@
+%h2 Direct Hardware Control
+= simple_form_for(@hardware, :url => set_temp_hardwares_url) do |f|
+  %h3 Temperature
+  = f.input :temperature, :label => 'Heat To (F)'
+  = f.button :submit, 'Set'
+= simple_form_for(@hardware, :url => hold_at_hardwares_url) do |f|
+  = f.input :temperature, :label => 'Hold At (F)'
+  = f.input :duration, :label => 'for (min)'
+  = f.button :submit, 'Set'

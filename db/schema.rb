@@ -11,7 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140617054532) do
+ActiveRecord::Schema.define(version: 20140711221150) do
+
+  create_table "brew_session_logs", force: true do |t|
+    t.integer  "degrees_fahrenheit_cents",    default: 0,     null: false
+    t.string   "degrees_fahrenheit_currency", default: "USD", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "notes"
+  end
+
+  create_table "command_logs", force: true do |t|
+    t.string   "command"
+    t.text     "parameters"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0
+    t.integer  "attempts",   default: 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "queue"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
