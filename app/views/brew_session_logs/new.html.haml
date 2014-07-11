@@ -1,0 +1,5 @@
+%h2 New Brew Session Log Entry
+= simple_form_for(@brew_log) do |f|
+  = f.input :notes, :label => 'Notes'
+  = f.button :submit, 'Save', class:'btn btn-primary'
+  = link_to "Cancel", brew_session_logs_path, class:'btn btn-primary'
