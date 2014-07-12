@@ -1,18 +1,7 @@
-- model_class = BrewSessionLog
 %h2 Brew Session Log Entries
 = link_to t('.new', default: t("helpers.links.new")), new_brew_session_log_path, class:'btn btn-primary'
-%table.table.table-striped
-  %thead
-    %tr
-      %th= model_class.human_attribute_name(:id)
-      %th= model_class.human_attribute_name(:degrees_fahrenheit)
-      %th= model_class.human_attribute_name(:notes)
-      %th= model_class.human_attribute_name(:created_at)
-  %tbody
-    - @brew_session_logs.each do |log|
-      %tr
-        %td= log.id
-        %td= log.degrees_fahrenheit
-        %td= log.notes
-        %td= log.created_at
-
+= render partial: "table"
+:javascript
+    $(document).ready( function() {
+      setTimeout(executeRefresh, 5000);
+    } );

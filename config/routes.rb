@@ -8,5 +8,9 @@ Rails.application.routes.draw do
       post :hold_at
     end
   end
-  resources :brew_session_logs, only: [:new, :create, :index]
+  resources :brew_session_logs, only: [:new, :create, :index] do
+    collection do
+      get :index_table
+    end
+  end
 end

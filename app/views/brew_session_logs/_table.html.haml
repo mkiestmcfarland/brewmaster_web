@@ -1,0 +1,16 @@
+- model_class = BrewSessionLog
+%table#log_list.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:degrees_fahrenheit)
+      %th= model_class.human_attribute_name(:notes)
+      %th= model_class.human_attribute_name(:created_at)
+  %tbody
+    - @brew_session_logs.each do |log|
+      %tr
+        %td= log.id
+        %td= log.degrees_fahrenheit
+        %td= log.notes
+        %td= log.created_at
+
