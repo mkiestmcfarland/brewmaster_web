@@ -1,6 +1,6 @@
 class Arduino
   #params for serial port
-  @port_str = "/dev/tty.usbserial-A9007QGb"#"/dev/ttyUSB0"  #may be different for you
+  @port_str = "/dev/ttyUSB0" #"/dev/tty.usbserial-A9007QGb"  #may be different for you
   @baud_rate = 9600
   @data_bits = 8
   @stop_bits = 1
