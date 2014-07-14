@@ -7,21 +7,24 @@ class Arduino
   @parity = SerialPort::NONE
 
   def initialize
+    Delayed::Worker.logger.add(Logger::INFO, 'init_start')
     @sp = SerialPort.new(@port_str, @baud_rate, @data_bits, @stop_bits, @parity)
+    Delayed::Worker.logger.add(Logger::INFO, 'init_end')
   end
 
   def read
+    Delayed::Worker.logger.add(Logger::INFO, 'read')
     r = @sp.gets.chomp
     Delayed::Worker.logger.add(Logger::INFO, r)
     #BrewSessionLog.create(:degrees_fahrenheit => 1)
   end
 
   def fill(weight)
-    #(success)
+    (success)
   end
   
   def grind(expected_weight)
-    #(actual added weight)
+    (actual added weight)
   end
 
   def heat_to(temp) #(success)
