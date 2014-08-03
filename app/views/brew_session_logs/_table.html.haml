@@ -3,14 +3,21 @@
   %thead
     %tr
       %th= model_class.human_attribute_name(:id)
-      %th= model_class.human_attribute_name(:degrees_fahrenheit)
+      %th= model_class.human_attribute_name(:kettle_degrees_fahrenheit)
       %th= model_class.human_attribute_name(:notes)
+      %th= model_class.human_attribute_name('Current Command')
+      %th= model_class.human_attribute_name(:wort_pump_on)
+      %th= model_class.human_attribute_name(:time_since_start)
+      %th= model_class.human_attribute_name(:free_ram)
       %th= model_class.human_attribute_name(:created_at)
   %tbody
     - @brew_session_logs.each do |log|
       %tr
         %td= log.id
-        %td= log.degrees_fahrenheit
+        %td= log.kettle_degrees_fahrenheit
         %td= log.notes
+        %td= log.command_log.command
+        %td= log.wort_pump_on
+        %td= log.time_since_start
+        %td= log.free_ram
         %td= log.created_at
-

@@ -1,3 +1,4 @@
 class BrewSessionLog < ActiveRecord::Base
-  monetize :degrees_fahrenheit_cents
+  monetize :kettle_degrees_fahrenheit_cents
+  belongs_to :command_log
 end

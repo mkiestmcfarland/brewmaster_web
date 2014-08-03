@@ -11,22 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140711221150) do
+ActiveRecord::Schema.define(version: 20140802232657) do
 
   create_table "brew_session_logs", force: true do |t|
-    t.integer  "degrees_fahrenheit_cents",    default: 0,     null: false
-    t.string   "degrees_fahrenheit_currency", default: "USD", null: false
+    t.integer  "kettle_degrees_fahrenheit_cents",    default: 0,     null: false
+    t.string   "kettle_degrees_fahrenheit_currency", default: "USD", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "notes"
+    t.integer  "time_since_start"
+    t.integer  "free_ram"
+    t.boolean  "wort_pump_on"
+    t.integer  "command_logs_id"
   end
 
   create_table "command_logs", force: true do |t|
     t.string   "command"
     t.text     "parameters"
-    t.string   "status"
+    t.string   "status",        default: "pending"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "error_message"
   end
 
   create_table "delayed_jobs", force: true do |t|
