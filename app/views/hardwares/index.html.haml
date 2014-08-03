@@ -1,0 +1,98 @@
+%h2 Direct Hardware Control
+%table
+  %thead
+    %th
+      %h3 Temperature
+    %th
+      %h3 On/Off
+    %th
+      %h3 Weight
+  %tr
+    %td
+      = form_tag(set_temp_hardwares_url, class: "form-inline") do |f|
+        %div
+          = label_tag 'Heat To (F)'
+          = number_field_tag 'temperature', 150, in: 32...212
+          = button_to 'Set', {:controller => :hardwares, :action => :set_temp}, :class => 'btn btn-primary'
+    %td
+      = form_tag(whirlpool_valve_hardwares_url)  do |f|
+        %div
+          = label_tag 'Whirlpool Valve'
+          = radio_button_tag('toggle', 'off', true)
+          = label_tag 'Off'
+          = radio_button_tag('toggle', 'on')
+          = label_tag 'On'
+          = button_to 'Set', {:controller => :hardwares, :action => :whirlpool_valve}, :class => 'btn btn-primary'
+    %td
+      = form_tag(fill_hardwares_url)  do |f|
+        %div
+          = label_tag 'Fill with (oz)'
+          = number_field_tag 'weight', 16, in: 1...128
+          = button_to 'Set', {:controller => :hardwares, :action => :fill}, :class => 'btn btn-primary'
+    %td
+    %td
+  %tr
+    %td
+      = form_tag(hold_at_hardwares_url)  do |f|
+        %div
+          = label_tag 'Hold At (F)'
+          = number_field_tag 'temperature', 150, in: 32...212
+          = number_field_tag 'duration', 30, in: 1...180
+          = label_tag 'for (min)'
+          = button_to 'Set', {:controller => :hardwares, :action => :hold_at}, :class => 'btn btn-primary'
+    %td
+      = form_tag(wort_pipe_valve_hardwares_url)  do |f|
+        %div
+          = label_tag 'Wort Pipe Valve'
+          = radio_button_tag('toggle', 'off', true)
+          = label_tag 'Off'
+          = radio_button_tag('toggle', 'on')
+          = label_tag 'On'
+          = button_to 'Set', {:controller => :hardwares, :action => :wort_pipe_valve}, :class => 'btn btn-primary'
+    %td
+      = form_tag(grind_hardwares_url)  do |f|
+        %div
+          = label_tag 'Grind to (oz)'
+          = number_field_tag 'weight', 16, in: 1...200
+          = button_to 'Set', {:controller => :hardwares, :action => :grind}, :class => 'btn btn-primary'
+  %tr
+    %td
+      = form_tag(boil_hardwares_url)  do |f|
+        %div
+          = label_tag 'Boil'
+          = number_field_tag 'duration', 30, in: 1...180
+          = label_tag 'for (min)'
+          = button_to 'Set', {:controller => :hardwares, :action => :boil}, :class => 'btn btn-primary'
+    %td
+      = form_tag(wort_pump_hardwares_url)  do |f|
+        %div
+          = label_tag 'Wort Pump'
+          = radio_button_tag('toggle', 'off', true)
+          = label_tag 'Off'
+          = radio_button_tag('toggle', 'on')
+          = label_tag 'On'
+          = button_to 'Set', {:controller => :hardwares, :action => :wort_pump}, :class => 'btn btn-primary'
+  %tr
+    %td
+    %td
+      = form_tag(cip_pump_hardwares_url)  do |f|
+        %div
+          = label_tag 'CIP Pump'
+          = radio_button_tag('toggle', 'off', true)
+          = label_tag 'Off'
+          = radio_button_tag('toggle', 'on')
+          = label_tag 'On'
+          = button_to 'Set', {:controller => :hardwares, :action => :cip_pump}, :class => 'btn btn-primary'
+    %td
+  %tr
+    %td
+    %td
+      = form_tag(drain_valve_hardwares_url)  do |f|
+        %div
+          = label_tag 'Drain Valve'
+          = radio_button_tag('toggle', 'off', true)
+          = label_tag 'Off'
+          = radio_button_tag('toggle', 'on')
+          = label_tag 'On'
+          = button_to 'Set', {:controller => :hardwares, :action => :drain_valve}, :class => 'btn btn-primary'
+    %td

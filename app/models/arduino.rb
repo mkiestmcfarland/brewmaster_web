@@ -1,8 +1,4 @@
 class Arduino
-  def initialize
-    @sp = Arduino.create_connection
-  end
-
   def self.create_connection
     #params for serial port
     #@port_str = "/dev/ttyUSB0" #"/dev/tty.usbserial-A9007QGb"  #may be different for you
@@ -37,7 +33,7 @@ class Arduino
       else #command completed
         #[database command id],[status],[error message]
         command_id = split[0]
-        status = split[1]
+        status = split[1].chomp
         c = CommandLog.find_by_id(command_id.to_i)
         if split.length > 2
           c.update_attributes(status: status, error_message: split[2])
@@ -48,67 +44,77 @@ class Arduino
     end
   end
 
-  def send_command(command, params='')
+  def self.send_command(command, params='')
     cmd = CommandLog.create(command: command, parameters: params)
     command_string = "#{cmd.id},#{command}"
     command_string += ",#{params}" if params
-    @sp.puts(command_string)
+    sp = Arduino.create_connection
+    sp.puts(command_string)
   end
 
-  def heat_to(temp)
-    send_command('heat to', "#{temp}")
+  def self.heat_to(temp)
+    send_command('heatTo', "#{temp}")
   end
 
-  def hold_at(temp, duration)
-    send_command('hold at', "#{temp},#{duration}")
+  def self.boil(duration)
+    send_command('boil', "#{duration}")
   end
 
-  def fill(weight)
+  def self.fill(weight)
     send_command('fill', "#{weight}")
   end
-  
-  def grind(expected_weight)
+
+  def self.grind(expected_weight)
     send_command('grind', "#{expected_weight}")
   end
 
-  def pump(off=true)
-    send_command('pump', "#{off}")
+  def self.hold_at(temp, duration)
+    send_command('holdAt', "#{temp},#{duration}")
   end
 
-  def chill (temp)
+  def self.whirlpool_valve(toggle='off')
+    send_command('whirlpoolValve', "#{toggle}")
+  end
+
+  def self.wort_pipe_valve(toggle='off')
+    send_command('wortPipeValve', "#{toggle}")
+  end
+
+  def self.wort_pump(toggle='off')
+    send_command('wortPump', "#{toggle}")
+  end
+
+  def self.drain_valve(toggle='off')
+    send_command('drainValve', "#{toggle}")
+  end
+
+  def self.cip_pump(toggle='off')
+    send_command('CIPPump', "#{toggle}")
+  end
+
+
+  def self.chill (temp)
     send_command('chill', "#{temp}")
   end
 
-  def recirculate_mash
+  def self.recirculate_mash
     send_command('recirculate mash')
   end
 
-  def whirlpool
+  def self.whirlpool
     send_command('whirlpool')
   end
 
-  def drain
-    send_command('drain')
-  end
-
-  def lift_mash
+  def self.lift_mash
     send_command('lift mash')
   end
 
-  def dump_mash
+  def self.dump_mash
     send_command('dump mash')
   end
 
-  def CIP
-    send_command('CIP')
-  end
-
-  def lid_up
-    send_command('lid', 'up')
-  end
-
-  def lid_down
-    send_command('lid', 'down')
+  def self.lid(up=false)
+    send_command('lid', "#{up ? 'up' : 'down'}")
   end
 end
 ##params for serial port

@@ -79,3 +79,10 @@ section {
   @extend .btn-primary;
   @extend .btn-xs;
 }
+thead th {
+  border-bottom: solid 0.25em black;
+}
+th, td {
+  padding: 10px;
+  text-align: center;
+}
