@@ -3,12 +3,12 @@ class Arduino
     #params for serial port
     #@port_str = "/dev/ttyUSB0" #"/dev/tty.usbserial-A9007QGb"  #may be different for you
     #@port_str = "/dev/tty.usbserial-A9007QGb"  #may be different for you
-    port_str = "/dev/tty.usbmodem1411"
+    #port_str = "/dev/tty.usbmodem1411"
     baud_rate = 9600
     data_bits = 8
     stop_bits = 1
     parity = SerialPort::NONE
-    return SerialPort.new(port_str, baud_rate, data_bits, stop_bits, parity)
+    return SerialPort.new(ARDUNIO_PORT, baud_rate, data_bits, stop_bits, parity)
   end
 
   def self.read
