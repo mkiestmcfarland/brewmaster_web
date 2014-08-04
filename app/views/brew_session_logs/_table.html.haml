@@ -16,7 +16,11 @@
         %td= log.id
         %td= log.kettle_degrees_fahrenheit
         %td= log.notes
-        %td= log.command_log.command
+        %td
+          - if log.command_log
+            = log.command_log.command
+          - else
+            = 'none'
         %td= log.wort_pump_on
         %td= log.time_since_start
         %td= log.free_ram
