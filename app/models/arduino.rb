@@ -20,6 +20,7 @@ class Arduino
     end
     begin
       while (line = sp.readline) do
+        Rails.logger.info(line)
         split = line.split(',')
         if (line.index('Status') == 0) #standard logging
           #[function],[time since start],[current command],[free ram],[kettle temp],[wort pump on]
@@ -36,10 +37,12 @@ class Arduino
           command_id = split[0]
           status = split[1].chomp
           c = CommandLog.find_by_id(command_id.to_i)
-          if split.length > 2
-            c.update_attributes(status: status, error_message: split[2])
-          else
-            c.update_attributes(status: status)
+          if c.present?
+            if split.length > 2
+              c.update_attributes(status: status, error_message: split[2])
+            else
+              c.update_attributes(status: status)
+            end
           end
         end
       end
