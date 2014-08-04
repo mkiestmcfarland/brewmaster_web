@@ -18,29 +18,33 @@ class Arduino
     rescue
       Rails.logger.info('Not able to connect to the Serial Port')
     end
-    while (line = sp.readline) do
-      split = line.split(',')
-      if (line.index('Status') == 0) #standard logging
-        #[function],[time since start],[current command],[free ram],[kettle temp],[wort pump on]
-        elapsed_time = split[1]
-        cmd = split[2].to_i
-        ram = split[3]
-        kettle_temp = split[4]
-        wort_pump_on = split[5] == '1'
-        #ram less than 100, throw fit
-        BrewSessionLog.create(time_since_start: elapsed_time, command_logs_id: cmd, free_ram: ram,
-                              kettle_degrees_fahrenheit: kettle_temp, wort_pump_on: wort_pump_on)
-      else #command completed
-        #[database command id],[status],[error message]
-        command_id = split[0]
-        status = split[1].chomp
-        c = CommandLog.find_by_id(command_id.to_i)
-        if split.length > 2
-          c.update_attributes(status: status, error_message: split[2])
-        else
-          c.update_attributes(status: status)
+    begin
+      while (line = sp.readline) do
+        split = line.split(',')
+        if (line.index('Status') == 0) #standard logging
+          #[function],[time since start],[current command],[free ram],[kettle temp],[wort pump on]
+          elapsed_time = split[1]
+          cmd = split[2].to_i
+          ram = split[3]
+          kettle_temp = split[4]
+          wort_pump_on = split[5] == '1'
+          #ram less than 100, throw fit
+          BrewSessionLog.create(time_since_start: elapsed_time, command_logs_id: cmd, free_ram: ram,
+                                kettle_degrees_fahrenheit: kettle_temp, wort_pump_on: wort_pump_on)
+        else #command completed
+          #[database command id],[status],[error message]
+          command_id = split[0]
+          status = split[1].chomp
+          c = CommandLog.find_by_id(command_id.to_i)
+          if split.length > 2
+            c.update_attributes(status: status, error_message: split[2])
+          else
+            c.update_attributes(status: status)
+          end
         end
       end
+    rescue => e
+      Rails.logger.error(e.message)
     end
   end
 
