@@ -4,7 +4,7 @@ class Arduino
     #@port_str = "/dev/ttyUSB0" #"/dev/tty.usbserial-A9007QGb"  #may be different for you
     #@port_str = "/dev/tty.usbserial-A9007QGb"  #may be different for you
     #port_str = "/dev/tty.usbmodem1411"
-    baud_rate = 9600
+    baud_rate = 57600
     data_bits = 8
     stop_bits = 1
     parity = SerialPort::NONE
